@@ -74,14 +74,14 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
     if (file != null) {
       if (!isDesktop) {
         SRDialog.showMessage(
-            context: context, title: "保存图片", message: "已保存到相册");
+            context: context, title: "保存图片", message: "已保存到相册",);
       } else {
         var directory = await selectDir();
         if (directory != null) {
           file = file.copySync(
-              "${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg");
+              "${directory.path}/${DateTime.now().millisecondsSinceEpoch}.jpg",);
           SRDialog.showMessage(
-              context: context, title: "保存图片", message: "已保存到：${file.path}");
+              context: context, title: "保存图片", message: "已保存到：${file.path}",);
         }
       }
     } else {
@@ -111,7 +111,7 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
                       }
                       Navigator.of(context).pop([
                         if (imageBytes != null)
-                          ImageUnit(bytes: imageBytes, fromFile: false)
+                          ImageUnit(bytes: imageBytes, fromFile: false),
                       ]);
                     } else if (await _clipboardHasFiles) {
                       var units = (await Pasteboard.files())
@@ -125,7 +125,7 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
                           })
                           .whereNotNull()
                           .map((e) => ImageUnit(
-                              bytes: e.readAsBytesSync(), fromFile: true))
+                              bytes: e.readAsBytesSync(), fromFile: true,),)
                           .toList();
                       if (!mounted) {
                         return;
@@ -135,11 +135,11 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
                         SRDialog.showMessage(
                             context: context,
                             title: "无法添加",
-                            message: "选中的文件都不是能识别的图片");
+                            message: "选中的文件都不是能识别的图片",);
                       }
                     }
                   },
-                )
+                ),
               ],
             ),
           ),
@@ -524,7 +524,7 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
           iconData: Icons.arrow_back_rounded,
           size: const Size.square(32),
           onPress: () => Navigator.of(context).pop(),
-        )),
+        ),),
       ),
       extendBodyBehindAppBar: true,
       body: Builder(builder: (context) {
@@ -558,11 +558,11 @@ class _MergeImagePageState extends ThemedState<MergeImagePage> {
                     ],
                   );
                 }
-              }),
+              },),
             ),
           ],
         );
-      }),
+      },),
     );
   }
 }

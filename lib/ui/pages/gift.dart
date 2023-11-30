@@ -100,13 +100,13 @@ class _GiftPageState extends ThemedState<GiftPage> {
                               child: QrCode(
                                   content: _bloc.alipayUrl,
                                   size: 200,
-                                  background: Colors.transparent),
+                                  background: Colors.transparent,),
                             ),
                             const SizedBox(height: 16),
                             const Text("请使用支付宝扫描"),
                           ],
                         ),
-                      )));
+                      ),),);
                 } else {
                   _bloc.confirmDonation();
                 }
@@ -257,7 +257,7 @@ class _GiftPageState extends ThemedState<GiftPage> {
           iconData: Icons.arrow_back_rounded,
           size: const Size.square(32),
           onPress: () => Navigator.of(context).pop(),
-        )),
+        ),),
       ),
       extendBodyBehindAppBar: true,
       body: MediaQuery(

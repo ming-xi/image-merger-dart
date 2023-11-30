@@ -10,7 +10,6 @@ import 'package:image_merger_dart/utils/constants.dart';
 import 'package:image_merger_dart/utils/image.dart';
 import 'package:image_merger_dart/utils/logger.dart';
 import 'package:image_merger_dart/utils/string.dart';
-import 'package:image_size_getter/image_size_getter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -160,7 +159,7 @@ class MergeImageBloc extends BaseBloc {
           (index) => useUniqueOffset && stream.value.isNotEmpty
               ? stream.value[0]
               : defaultValue,
-        )
+        ),
       ]);
     } else {
       stream.add([
@@ -315,8 +314,10 @@ class _Task {
     int currentHeight = 0;
     for (int i = 0; i < files.length; i++) {
       var imageSize = sizes[i]!;
-      mxLog("decoded image #${i + 1} start ${imageSize.$1}x${imageSize.$2}",
-          clear: true);
+      mxLog(
+        "decoded image #${i + 1} start ${imageSize.$1}x${imageSize.$2}",
+        clear: true,
+      );
       img.Image image = (img.decodeImage(files[i].bytes))!;
       mxLog("decoded image #${i + 1} end");
       var start = offsetStarts[i];
@@ -324,11 +325,13 @@ class _Task {
       mxLog("draw image #${i + 1} start overlay:[$start,$end]");
       if (i > 0 && (start != 0 || end != 1)) {
         mxLog("scale image #${i + 1} start");
-        image = img.copyCrop(image,
-            x: 0,
-            y: (imageSize.$2 * start).toInt(),
-            width: imageSize.$1,
-            height: (imageSize.$2 * (end - start)).toInt());
+        image = img.copyCrop(
+          image,
+          x: 0,
+          y: (imageSize.$2 * start).toInt(),
+          width: imageSize.$1,
+          height: (imageSize.$2 * (end - start)).toInt(),
+        );
         mxLog("scale image #${i + 1} end ${image.width}x${image.height}");
       }
       var scaledHeight = image.height * outputWidth ~/ image.width;
@@ -355,5 +358,4 @@ class _Task {
     mxLog("write file end");
     return file;
   }
-
 }

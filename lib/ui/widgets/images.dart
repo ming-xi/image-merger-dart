@@ -106,7 +106,7 @@ class _ImageRegionWidgetState extends State<ImageRegionWidget> {
                               _tempOffset.add(0);
                               widget.onMoveEnd();
                             },
-                          ))
+                          ),),
                     ],
                   ),
                 ),
@@ -129,7 +129,6 @@ class _MoveButton extends StatefulWidget {
   final ValueChanged<double> onOffsetChanged;
 
   const _MoveButton({
-    super.key,
     required this.imageSize,
     required this.width,
     required this.baseOffsetStart,
@@ -172,7 +171,7 @@ class _MoveButtonState extends State<_MoveButton> {
                 color: Colors.black.withOpacity(0.25),
                 spreadRadius: 2,
                 blurRadius: 4,
-                offset: const Offset(0, 1))
+                offset: const Offset(0, 1),),
           ],
         ),
         child: const Icon(
@@ -250,10 +249,10 @@ Future<bool> checkPermission({BuildContext? context, String? title}) async {
                       },
                     ),
                   ],
-                )
+                ),
               ],
             ),
-          )),
+          ),),
         );
       }
       return false;
@@ -309,7 +308,7 @@ class CustomImage extends StatelessWidget {
   final PlaceholderWidgetBuilder? placeholder;
 
   const CustomImage({
-    Key? key,
+    super.key,
     String? imageUrl,
     this.bytes,
     this.width,
@@ -321,12 +320,11 @@ class CustomImage extends StatelessWidget {
     this.filterQuality = FilterQuality.low,
     this.placeholder,
   })  : assert(imageUrl != null || bytes != null),
-        imageUrl = imageUrl ?? '',
-        super(key: key);
+        imageUrl = imageUrl ?? '';
 
   const CustomImage.asset(
     String name, {
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.color,
@@ -336,12 +334,11 @@ class CustomImage extends StatelessWidget {
     this.filterQuality = FilterQuality.low,
     this.placeholder,
   })  : imageUrl = name,
-        bytes = null,
-        super(key: key);
+        bytes = null;
 
   const CustomImage.network(
     String src, {
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.color,
@@ -351,12 +348,11 @@ class CustomImage extends StatelessWidget {
     this.filterQuality = FilterQuality.low,
     this.placeholder,
   })  : imageUrl = src,
-        bytes = null,
-        super(key: key);
+        bytes = null;
 
   const CustomImage.memory(
     Uint8List this.bytes, {
-    Key? key,
+    super.key,
     this.width,
     this.height,
     this.color,
@@ -365,8 +361,7 @@ class CustomImage extends StatelessWidget {
     this.repeat = ImageRepeat.noRepeat,
     this.filterQuality = FilterQuality.low,
     this.placeholder,
-  })  : imageUrl = '',
-        super(key: key);
+  })  : imageUrl = '';
 
   @override
   Widget build(BuildContext context) {
@@ -407,8 +402,8 @@ class RoundedRectangleImage extends CustomImage {
       shadows == null;
 
   const RoundedRectangleImage({
-    Key? key,
-    required String imageUrl,
+    super.key,
+    required String super.imageUrl,
     this.borderWidth = 2,
     this.borderColor = Colors.black,
     this.borderRadius = 8,
@@ -418,26 +413,15 @@ class RoundedRectangleImage extends CustomImage {
     this.constraints,
     this.shadows,
     this.clip = Clip.hardEdge,
-    Uint8List? bytes,
-    double? width,
-    double? height,
-    Color? color,
-    BoxFit fit = BoxFit.cover,
-    Alignment alignment = Alignment.center,
-    ImageRepeat repeat = ImageRepeat.noRepeat,
-    FilterQuality filterQuality = FilterQuality.low,
-  }) : super(
-          key: key,
-          imageUrl: imageUrl,
-          bytes: bytes,
-          width: width,
-          height: height,
-          color: color,
-          fit: fit,
-          alignment: alignment,
-          repeat: repeat,
-          filterQuality: filterQuality,
-        );
+    super.bytes,
+    super.width,
+    super.height,
+    super.color,
+    super.fit,
+    super.alignment,
+    super.repeat,
+    super.filterQuality,
+  });
 
   const RoundedRectangleImage.memory({
     Key? key,
@@ -525,8 +509,8 @@ class CircleImage extends CustomImage {
       shadows == null;
 
   const CircleImage({
-    Key? key,
-    required String imageUrl,
+    super.key,
+    required String super.imageUrl,
     this.borderWidth = 2,
     this.borderColor = Colors.black,
     this.backgroundColor,
@@ -535,26 +519,15 @@ class CircleImage extends CustomImage {
     this.constraints,
     this.shadows,
     this.clip = Clip.hardEdge,
-    Uint8List? bytes,
-    double? width,
-    double? height,
-    Color? color,
-    BoxFit fit = BoxFit.cover,
-    Alignment alignment = Alignment.center,
-    ImageRepeat repeat = ImageRepeat.noRepeat,
-    FilterQuality filterQuality = FilterQuality.low,
-  }) : super(
-          key: key,
-          imageUrl: imageUrl,
-          bytes: bytes,
-          width: width,
-          height: height,
-          color: color,
-          fit: fit,
-          alignment: alignment,
-          repeat: repeat,
-          filterQuality: filterQuality,
-        );
+    super.bytes,
+    super.width,
+    super.height,
+    super.color,
+    super.fit,
+    super.alignment,
+    super.repeat,
+    super.filterQuality,
+  });
 
   const CircleImage.memory({
     Key? key,
@@ -632,7 +605,6 @@ class _CustomImage extends StatelessWidget {
   late final _CacheConstraint _cacheConstraint;
 
   _CustomImage({
-    Key? key,
     String? imageUrl,
     this.bytes,
     this.width,
@@ -644,8 +616,7 @@ class _CustomImage extends StatelessWidget {
     this.filterQuality = FilterQuality.low,
     this.placeholder,
   })  : assert(imageUrl != null || bytes != null),
-        imageUrl = imageUrl ?? '',
-        super(key: key) {
+        imageUrl = imageUrl ?? '' {
     _cacheConstraint = _CacheConstraint(width: width, height: height);
   }
 
