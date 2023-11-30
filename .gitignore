@@ -435,3 +435,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,intellij,dart,android,swift,macos,windows
+/android/keystores/

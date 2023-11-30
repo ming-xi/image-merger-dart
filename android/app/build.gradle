@@ -45,17 +45,30 @@ android {
         applicationId "tech.mingxi.image_merger_dart"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    signingConfigs {
+        release {
+            if (hasSpecificKeyStore('release')) {
+                def key = loadKeyStore('release')
+                storeFile key.store
+                storePassword key.storePassword
+                keyAlias key.alias
+                keyPassword key.keyPassword
+            }
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            resValue "string", "app_name", "拼图"
+        }
+        debug {
+            resValue "string", "app_name", "拼图 dev"
+            applicationIdSuffix ".dev"
         }
     }
 }
@@ -65,3 +78,43 @@ flutter {
 }
 
 dependencies {}
+
+// sign keystore utils
+def hasSpecificKeyStore(type) {
+    def keystoresDir = new File(rootDir, 'keystores')
+    if (!keystoresDir.exists()) {
+        throw new FileNotFoundException("keystores is not found: ${keystoresDir}")
+    }
+    def keystorePropsFile = new File(new File(keystoresDir, type), 'keystore.properties')
+    return keystorePropsFile.exists()
+}
+
+def loadKeyStore(type) {
+    def keystoresDir = new File(rootDir, 'keystores')
+
+    if (!keystoresDir.exists()) {
+        throw new FileNotFoundException("keystores is not found: ${keystoresDir}")
+    }
+
+    def targetDir = new File(keystoresDir, type)
+    def keystorePropsFile = new File(targetDir, 'keystore.properties')
+
+    if (!keystorePropsFile.exists()) {
+        throw new FileNotFoundException("keystore properties is not found: ${keystorePropsFile}")
+    }
+
+    def keystoreProps = new Properties()
+    keystoreProps.load(new FileInputStream(keystorePropsFile))
+
+    def keystoreFile = new File(targetDir, keystoreProps['key.store'])
+    if (!keystoreFile.exists()) {
+        throw new FileNotFoundException("keystore is not found: ${keystoreFile}")
+    }
+
+    return [
+            store        : keystoreFile,
+            alias        : keystoreProps['key.alias'],
+            storePassword: keystoreProps['key.store.password'],
+            keyPassword  : keystoreProps['key.alias.password']
+    ]
+}
