@@ -33,6 +33,8 @@ class App extends StatelessWidget {
           appBarTheme: _appBarTheme,
           colorScheme: lightColorScheme ?? _defaultLightColorScheme,
           // inputDecorationTheme: _inputDecorationTheme,
+          fontFamily: "HYWH",
+          textTheme: Theme.of(context).textTheme.apply(fontFamily: "HYWH"),
           useMaterial3: true,
         );
         return MaterialApp(

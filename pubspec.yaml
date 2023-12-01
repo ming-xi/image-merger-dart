@@ -69,6 +69,11 @@ flutter:
 
   assets:
     - assets/images/
+  fonts:
+    - family: HYWH
+      fonts:
+        - asset: assets/fonts/hywh.ttf
+          weight: 700
 
 
 flutter_launcher_icons:
