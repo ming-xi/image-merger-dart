@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 'start building rust binaries'
+echo 'generating icons'
 # move to dir of this script
 cd "$(dirname "$0")"
 cd ..
