@@ -220,8 +220,10 @@ Future<bool> checkPermission({BuildContext? context, String? title}) async {
         ? Permission.photos
         : Permission.storage;
     PermissionStatus status = await permission.status;
+    debugPrint("status 1=$status");
     if (!status.isGranted) {
       status = await permission.request();
+    debugPrint("status 2=$status");
     }
     if (!status.isGranted) {
       if (context != null && context.mounted) {
@@ -271,14 +273,6 @@ Future<List<File>> pickImages({
   int imageQuality = 100,
   bool requestFullMetadata = false,
 }) async {
-  if (!isDesktop) {
-    final isGranted = checkForPermission == true
-        ? await checkPermission(context: context, title: "本程序需要相册权限以选择图片")
-        : true;
-    if (!isGranted) {
-      return [];
-    }
-  }
   try {
     List<File> files;
     var xFiles = await _picker.pickMultiImage(

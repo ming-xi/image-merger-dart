@@ -4,3 +4,4 @@ echo 'building release ipa'
 cd "$(dirname "$0")"
 cd .. || exit
 flutter build ipa --release --export-method=ad-hoc
+open build/ios/ipa/
